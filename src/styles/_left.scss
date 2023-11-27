@@ -1,0 +1,33 @@
+#left {
+    width: 35%;
+    height: 100%;
+
+    background-color: burlywood;
+    border: 1px solid blue;
+}
+
+#navHeader {
+    @include flexElement;
+    color: #7F7F7F;
+    height: 50px;
+
+    background-color: white;
+    border: 1px solid blue;
+}
+
+#navHeader h2 {
+    position: absolute;
+    left: 5vw;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    padding-left: 3vw;
+    color: black;
+    width: 100%;
+    height: 50px;
+
+    background-color: white;
+    border: 1px solid blue;
+}

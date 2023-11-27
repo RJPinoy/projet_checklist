@@ -1,0 +1,27 @@
+@import './styles/_mixin.scss';
+@import './styles/_header.scss';
+@import './styles/_left.scss';
+@import './styles/_right.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+#content {
+  display: flex;
+  height: 90%;
+}
+
+h1 {
+  width: 50%;
+  text-align: center;
+}
