@@ -1,6 +1,7 @@
 import './App.scss';
-import LeftChecklist from './dashboard/LeftChecklist';
-import RightChecklist from './dashboard/RightChecklist';
+import Dashboard from './pages/dashboard';
+import Formulaire from './pages/formulaire';
+import { Routes, Route } from 'react-router-dom';
 
 window.onload = function() {
   const rootDiv = document.getElementById('root');
@@ -12,36 +13,10 @@ function App() {
 
   return (
     <>
-      <div id='header'>
-        <div id='logo'></div>
-
-        <h1>Pre-fight checklist</h1>
-      </div>
-
-      <div id='content'>
-        <section id='left'>
-          <article id='navHeader'>
-            <h2>My lists :</h2>
-          </article>
-
-          <nav id='nav'>
-            <ul>
-              <LeftChecklist />
-            </ul>
-          </nav>
-        </section>
-
-        <section id='right'>
-          <article className='noList'>
-            <p>Oh no! Start now to create a new list.</p>
-          </article>
-
-          <article>
-            <RightChecklist />
-            <RightChecklist />
-          </article>
-        </section>
-      </div>
+      <Routes>
+        <Route index element={ <Dashboard /> } />
+        <Route path='/formulaire' element={ <Formulaire /> } />
+      </Routes>
     </>
   )
 }

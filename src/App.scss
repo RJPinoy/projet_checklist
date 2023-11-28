@@ -27,3 +27,14 @@ h1 {
   width: 50%;
   text-align: center;
 }
+
+button {
+  @include flexElement;
+  width: 20vw;
+  height: 10vh;
+  font-size: 5rem;
+  
+  background: #EF476F;
+  // border: none;
+  border-radius: 25px;
+}
