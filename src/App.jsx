@@ -13,9 +13,7 @@ function App() {
   return (
     <>
       <div id='header'>
-        <div id='logo'>
-
-        </div>
+        <div id='logo'></div>
 
         <h1>Pre-fight checklist</h1>
       </div>
