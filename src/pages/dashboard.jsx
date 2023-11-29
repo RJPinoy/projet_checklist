@@ -1,6 +1,6 @@
 import Header from "../composants/Header";
-import LeftChecklist from "../composants/LeftChecklist";
-import RightChecklist from "../composants/RightChecklist";
+import LeftLists from "../composants/LeftLists";
+import RightLists from "../composants/RightLists";
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -22,23 +22,22 @@ const Dashboard = () => {
 
                 <nav id='nav'>
                 <ul>
-                    <LeftChecklist />
+                    <LeftLists />
                 </ul>
                 </nav>
 
                 <article id='newList'>
-                    <button onClick={goToFormulaire}>+</button>
+                    <button onClick={ goToFormulaire }>+</button>
                 </article>
             </section>
 
             <section id='right'>
-                <article className='noList'>
-                <p>Oh no! Start now to create a new list.</p>
+                <article className='d-none'>
+                    <p>Oh no! Start now to create a new list.</p>
                 </article>
 
                 <article>
-                <RightChecklist />
-                <RightChecklist />
+                    <RightLists />
                 </article>
             </section>
             </div>

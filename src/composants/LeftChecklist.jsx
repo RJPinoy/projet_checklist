@@ -1,9 +1,9 @@
-const LeftChecklist = () => {
-    return ( 
-        <>
-            <li className="list">List 1 (blank)</li>
-        </>
-     );
+const LeftChecklist = ({
+    id, title, description, status}) => {
+
+    return (  
+        <li className="list">- { title } ( { status } )</li>
+    );
 }
  
 export default LeftChecklist;
