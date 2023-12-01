@@ -10,14 +10,14 @@ const listInit = {
         {
             id: "2",
             title: "List 2",
-            description: "first list",
+            description: "azeazeaze list",
             // tasks:
             status: 'in progress'
         },
         {
             id: "3",
             title: "List 3",
-            description: "first list",
+            description: "qsdqsdqsd list",
             // tasks:
             status: 'in progress'
         },

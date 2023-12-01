@@ -2,7 +2,6 @@ import { useReducer } from "react";
 import listInit from "./listsData/ListInit";
 import listReducer from "./listsData/ListReducer";
 import LeftChecklist from "./LeftChecklist";
-import RightChecklist from "./RightChecklist";
 
 const LeftLists = () => {
     const [state, dispatch] = useReducer(listReducer, listInit);
@@ -14,5 +13,5 @@ const LeftLists = () => {
             })
     );
 };
- 
+
 export default LeftLists;

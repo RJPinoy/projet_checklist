@@ -12,7 +12,7 @@ const RightChecklist = ({ lists, status }) => {
                 <tbody>
                     {filteredLists.map(list => (
                     <tr key={list.id}>
-                        <td scope="row">- {list.title}</td>
+                        <td scope="row" className="list">- {list.title}</td>
                     </tr>
                     ))}
                 </tbody>
