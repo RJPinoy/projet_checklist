@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewList, updateList } from '../composants/listsData/ListSlice';
+
 import Header from '../composants/Header';
 import Task from '../composants/Task';
 
 const Formulaire = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const [tasks, setTasks] = useState([]);
+
+  const list = useSelector((state) =>
+  location.state?.id
+    ? state.lists.lists.find((listItem) => listItem.id === location.state.id)
+    : null
+);
+
   const [listTitle, setListTitle] = useState('');
   const [desc, setDesc] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    if (list) {
+      setListTitle(list.title || '');
+      setDesc(list.description || '');
+    }
+  }, [list]);
 
   const addNewTask = () => {
     const newTask = <Task key={tasks.length} />;
@@ -17,16 +34,25 @@ const Formulaire = () => {
   };
 
   const saveToState = () => {
-    // Save list data to your state or dispatch an action
-  };
-
-  useEffect(() => {
-    // Set initial values for listTitle and desc when location state changes
+    // Determine whether it's an update or a new list
     if (location.state) {
-      setListTitle(location.state.title || '');
-      setDesc(location.state.description || '');
+      // Update an existing list
+      dispatch(updateList({
+        listTargetId: location.state.id,
+        newTitle: listTitle,
+        newDescription: desc,
+      }));
+    } else {
+      // Create a new list
+      dispatch(addNewList({
+        title: listTitle,
+        description: desc,
+        status: 'blank',
+      }));
     }
-  }, [location.state]);
+
+    navigate('/');
+  };
 
   return (
     <>

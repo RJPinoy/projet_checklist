@@ -1,7 +1,10 @@
 import './App.scss';
 import Dashboard from './pages/dashboard';
+import Checklist from './pages/checklist';
 import Formulaire from './pages/formulaire';
 import { Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 window.onload = function() {
   const rootDiv = document.getElementById('root');
@@ -13,10 +16,13 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route index element={ <Dashboard /> } />
-        <Route path='/formulaire' element={ <Formulaire /> } />
-      </Routes>
+      <Provider store={ store }>
+        <Routes>
+          <Route index element={ <Dashboard /> } />
+          <Route path='/formulaire' key={location.pathname} element={ <Formulaire /> } />
+          <Route path='/checklist' key={location.pathname} element={ <Checklist /> } />
+        </Routes>
+      </Provider>
     </>
   )
 }

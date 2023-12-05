@@ -1,17 +1,17 @@
-import { useReducer } from "react";
-import listInit from "./listsData/ListInit";
-import listReducer from "./listsData/ListReducer";
+import React from "react";
+import { useSelector } from "react-redux";
 import LeftChecklist from "./LeftChecklist";
 
 const LeftLists = () => {
-    const [state, dispatch] = useReducer(listReducer, listInit);
+  const lists = useSelector((state) => state.lists.lists);
 
-    return (  
-        state.lists.map(
-            list=>{
-                return <LeftChecklist key={list.id} {...list} dispatch={ dispatch } />
-            })
-    );
+  return (
+    <>
+      {lists.map((list) => (
+        <LeftChecklist key={list.id} {...list} />
+      ))}
+    </>
+  );
 };
 
 export default LeftLists;

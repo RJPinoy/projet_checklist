@@ -1,18 +1,17 @@
-import { useReducer } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import RightChecklist from "./RightChecklist";
-import listInit from "./listsData/ListInit";
-import listReducer from "./listsData/ListReducer";
 
 const RightLists = () => {
-    const [state, dispatch] = useReducer(listReducer, listInit);
+  const lists = useSelector((state) => state.lists.lists);
 
-    return (
-        <>
-            <RightChecklist lists={state.lists} status="in progress" />
-            <RightChecklist lists={state.lists} status="blank" />
-            <RightChecklist lists={state.lists} status="completed" />
-        </>
-    );
+  return (
+    <>
+      <RightChecklist lists={lists} status="in progress" />
+      <RightChecklist lists={lists} status="blank" />
+      <RightChecklist lists={lists} status="completed" />
+    </>
+  );
 };
 
 export default RightLists;
