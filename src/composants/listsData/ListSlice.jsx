@@ -1,29 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
-import listInit from './ListInit';
+import ApiData from './ListInit';
 
 const listSlice = createSlice({
   name: 'lists',
-  initialState: listInit,
+  initialState: ApiData,
   reducers: {
-    addNewList: (state, action) => {
-      const { title, description, status } = action.payload;
-      const newList = {
-        id: (state.lists.length + 1).toString(),
-        title,
-        description,
-        status,
-      };
+    getListFromApi: (state, action) => {
+      const data = action.payload;
 
       return {
         ...state,
-        lists: [...state.lists, newList],
+        lists: data
       };
     },
 
     updateList: (state, action) => {
-      const { listTargetId, newTitle, newDescription } = action.payload;
-      const updatedLists = state.lists.map((list) =>
-        list.id === listTargetId ? { ...list, title: newTitle, description: newDescription } : list
+      const { listTargetId, newTitle, newDescription, newTasks } = action.payload;
+      const updatedLists = state.lists.map((list) => list.id === listTargetId
+          ? {
+              ...list,
+              title: newTitle,
+              description: newDescription,
+              todo: newTasks,
+            }
+          : list
       );
 
       return {
@@ -31,8 +31,19 @@ const listSlice = createSlice({
         lists: updatedLists,
       };
     },
+
+    deleteList: (state, action) => {
+      const { listTargetId } = action.payload;
+    
+      const updatedLists = state.lists.filter((list) => list.id !== listTargetId);
+    
+      return {
+        ...state,
+        lists: updatedLists,
+      };
+    },    
   },
 });
 
-export const { addNewList, updateList } = listSlice.actions;
+export const { getListFromApi, updateList, deleteList } = listSlice.actions;
 export default listSlice.reducer;

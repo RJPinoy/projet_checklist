@@ -1,48 +1,69 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from "../composants/Header";
 import LeftLists from "../composants/LeftLists";
 import RightLists from "../composants/RightLists";
 import { useNavigate } from 'react-router-dom';
+import { fetchDataFromApi } from "../composants/Axios";
+import { getListFromApi } from '../composants/listsData/ListSlice';
+import { changeListStatus } from '../functions';
 
 const Dashboard = () => {
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const goToFormulaire = () => {
-        navigate('/formulaire');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchDataFromApi();
+        dispatch(getListFromApi(data));
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    return (  
-        <>
-            <Header />
+    fetchData();
+  }, [dispatch]);
 
-            <div id='content'>
-                <section id='left'>
-                    <article id='navHeader'>
-                    <h2>My lists :</h2>
-                    </article>
+  const goToFormulaire = () => {
+    navigate('/formulaire');
+  };
 
-                    <nav id='nav'>
-                    <ul>
-                        <LeftLists />
-                    </ul>
-                    </nav>
+  changeListStatus();
 
-                    <article id='newList'>
-                        <button onClick={ goToFormulaire }>+</button>
-                    </article>
-                </section>
+  return (
+    <>
+      <Header />
 
-                <section id='right'>
-                    <article className='d-none'>
-                        <p>Oh no! Start now to create a new list.</p>
-                    </article>
+      <div id='content'>
+        <section id='left'>
+          <article id='navHeader'>
+            <h2>My lists :</h2>
+          </article>
 
-                    <article>
-                        <RightLists />
-                    </article>
-                </section>
-            </div>
-        </>
-    );
-}
- 
+          <nav id='nav'>
+            <ul>
+              <LeftLists />
+            </ul>
+          </nav>
+
+          <article id='newList'>
+            <button onClick={ goToFormulaire }>+</button>
+          </article>
+        </section>
+
+        <section id='right'>
+          <article className='d-none no-list'>
+            <p>Oh no! Start now to create a new list.</p>
+          </article>
+
+          <article>
+            <RightLists />
+          </article>
+        </section>
+      </div>
+    </>
+  );
+};
+
 export default Dashboard;

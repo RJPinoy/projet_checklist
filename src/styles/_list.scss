@@ -1,7 +1,5 @@
 .list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexSpaceBetween;
     padding-left: 3vw;
     color: black;
     width: 100%;
@@ -39,9 +37,13 @@
     }
 }
 
-.list div img:hover {
+img {
+    transition: 0.3s;
+}
+
+img:hover {
     cursor: pointer;
-    background-color: yellow
+    background-color: #FFD166
 }
 
 #newList {

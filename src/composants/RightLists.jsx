@@ -7,9 +7,9 @@ const RightLists = () => {
 
   return (
     <>
-      <RightChecklist lists={lists} status="in progress" />
-      <RightChecklist lists={lists} status="blank" />
-      <RightChecklist lists={lists} status="completed" />
+      <RightChecklist lists={lists} statut={ 1 } statutString="in progress" />
+      <RightChecklist lists={lists} statut={ 0 } statutString="blank" />
+      <RightChecklist lists={lists} statut={ 2 } statutString="completed" />
     </>
   );
 };

@@ -4,11 +4,11 @@ import LeftChecklist from "./LeftChecklist";
 
 const LeftLists = () => {
   const lists = useSelector((state) => state.lists.lists);
-
+  
   return (
     <>
       {lists.map((list) => (
-        <LeftChecklist key={list.id} {...list} />
+        <LeftChecklist key={list.id} {...list} lists={ lists }/>
       ))}
     </>
   );

@@ -3,15 +3,15 @@
     width: 100%;
     min-height: 100%;
     background-color: #d9d9d9;
-}
 
-.back {
-    position: absolute;
-    top: 35px;
-    left: 5%;
-    cursor: pointer;
-    aspect-ratio: 1/1;
-    width: 50px;
+    form {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    
+        div {
+            border-bottom: 1px solid black;
+            background-color: white;
+        }
+    }
 }
 
 .divButton {
@@ -30,23 +30,34 @@
 }
 
 #listTitle {
+    position: relative;
     background-color: #7AC1FF;
-}
 
-#formulaire form div {
-    border-bottom: 1px solid black;
-    background-color: white;
-}
+    .back {
+        position: absolute;
+        top: 33%;
+        left: 5%;
+        cursor: pointer;
+        aspect-ratio: 1/1;
+        width: 50px;
+    }
 
-#formulaire form {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
-}
+    input {
+        @include formInputSettings;
+        font-size: 3rem;
+        height: 120px;
+        background-color: transparent;
+    }
 
-#listTitle input {
-    @include formInputSettings;
-    font-size: 3rem;
-    height: 120px;
-    background-color: transparent;
+    .deleteList {
+        position: absolute;
+        top: 33%;
+        right: 5%;
+        cursor: pointer;
+        aspect-ratio: 1/1;
+        width: 50px;
+    }
+    
 }
 
 #desc input {
@@ -54,7 +65,12 @@
     font-size: 2rem;
 }
 
-.task {
+.divInputTask {
+    @include flexElement;
+}
+
+.inputTask {
     @include formInputSettings;
+    width: 80%;
     font-size: 1rem;
 }

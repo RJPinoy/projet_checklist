@@ -4,10 +4,25 @@
     align-items: center;
 }
 
+@mixin flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @mixin formInputSettings {
-    width: 80%;
+    width: 70%;
     height: 60px;
+    margin: 10px 0 10px;
     border: none;
     color: black;
     background-color: white;
+}
+
+@mixin center {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-50%);
+    z-index: 9999;
 }

@@ -1,14 +1,86 @@
 import Header from "../composants/Header";
 import LeftLists from "../composants/LeftLists";
-import { useNavigate } from 'react-router-dom';
+import Task from "../composants/Task";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateList, deleteList } from "../composants/listsData/ListSlice";
+import { deleteDataFromApi, updateDataFromApi } from "../composants/Axios";
 
 const Checklist = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const location = useLocation();
+    
+    const list = useSelector((state) =>
+    location.state?.id
+        ? state.lists.lists.find((listItem) => listItem.id === location.state.id)
+        : null
+    );
 
-    const goToFormulaire = () => {
+    const goToFormulaireNew = () => {
         navigate('/formulaire');
     };
 
+    const goToFormulaireUpdate = () => {
+        dispatch(
+            updateList({
+                listTargetId: list.id,
+                newTitle: list.title,
+                newDescription: list.description,
+                newTasks: list.todo,
+            })
+        );
+      
+        navigate("/formulaire", {
+            state: {
+                id: list.id,
+                title: list.title,
+                description: list.description,
+                todo: list.todo,
+            },
+        });
+    };
+  
+    const deleteListToState = () => {
+        dispatch(
+            deleteList({listTargetId: list.id})
+        );
+
+        deleteDataFromApi(list.id);
+
+        navigate('/');
+    }
+
+    const countInProgressTasks = list.todo.reduce(
+        (count, task) => (task.statut === 1 ? count + 1 : count),
+        0
+    );
+
+    const changeTaskStatut = (index) => {
+        const updatedTasks = [...list.todo];
+        updatedTasks[index] = {
+            ...list.todo[index],
+            statut: list.todo[index].statut === 0 ? 1 : 0,
+        };
+    
+        dispatch(
+            updateList({
+                listTargetId: list.id,
+                newTitle: list.title,
+                newDescription: list.description,
+                newTasks: updatedTasks,
+            })
+        );
+    
+        updateDataFromApi(list.id, {
+            id: list.id,
+            title: list.title,
+            description: list.description,
+            statut: list.statut,
+            todo: updatedTasks,
+        });
+    };
+      
     return (  
         <>
             <Header />
@@ -16,22 +88,46 @@ const Checklist = () => {
             <div id='content'>
                 <section id='left'>
                     <article id='navHeader'>
-                    <h2>My lists :</h2>
+                        <h2>My lists :</h2>
                     </article>
 
                     <nav id='nav'>
-                    <ul>
-                        <LeftLists />
-                    </ul>
+                        <ul>
+                            <LeftLists />
+                        </ul>
                     </nav>
 
                     <article id='newList'>
-                        <button onClick={ goToFormulaire }>+</button>
+                        <button onClick={ goToFormulaireNew }>+</button>
                     </article>
                 </section>
 
-                <section id='right'>
+                <section id='rightChecklist'>
+                    <article id="checklistHeader">
+                        <div>
+                            <p>
+                                { list.title } 
+                                <span>
+                                    {countInProgressTasks > 0 && countInProgressTasks < list.todo.length
+                                        ? ' (in progress)' : countInProgressTasks === list.todo.length
+                                        ? ' (completed)' : ' (blank)'}
+                                </span>
+                                <br/>
+                                { list.description }
+                                <br/>
+                                ({ countInProgressTasks }/{ list.todo.length })
+                            </p>
+                        </div>
 
+                        <div>
+                            <img className="settings" src="../settings.svg" onClick={ goToFormulaireUpdate }/>
+                            <img className="delete" src="../delete.svg" onClick={ deleteListToState }/>
+                        </div>
+                    </article>
+
+                    <article id="tasks">
+                        <Task {...list} changeTaskStatut={ changeTaskStatut }/>
+                    </article>
                 </section>
             </div>
         </>

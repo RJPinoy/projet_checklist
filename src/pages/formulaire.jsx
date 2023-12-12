@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNewList, updateList } from '../composants/listsData/ListSlice';
-
+import { useSelector } from 'react-redux';
 import Header from '../composants/Header';
-import Task from '../composants/Task';
+import InputTask from '../composants/InputTask';
+import { addDataToApi, deleteDataFromApi, updateDataFromApi } from '../composants/Axios';
 
 const Formulaire = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const list = useSelector((state) =>
-  location.state?.id
-    ? state.lists.lists.find((listItem) => listItem.id === location.state.id)
-    : null
-);
+    location.state?.id
+      ? state.lists.lists.find((listItem) => listItem.id === location.state.id)
+      : null
+  );
 
   const [listTitle, setListTitle] = useState('');
   const [desc, setDesc] = useState('');
-  const [tasks, setTasks] = useState([]);
+  const [todo, setTasks] = useState([]);
 
   useEffect(() => {
     if (list) {
@@ -29,51 +27,88 @@ const Formulaire = () => {
   }, [list]);
 
   const addNewTask = () => {
-    const newTask = <Task key={tasks.length} />;
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    const newInputTask = <InputTask key={todo.length} />;
+    setTasks((prevTasks) => [...prevTasks, newInputTask]);
+  };
+
+  const deleteTask = (key) => {
+    let divTasks = document.getElementsByClassName('divInputTask');
+    divTasks[key].remove();
+  };
+
+  let inputExistingTasks;
+  if (location.state) {
+    inputExistingTasks = list.todo.map((task, index) => (
+      <div key={index} className='divInputTask'>
+        <input
+          className="inputTask"
+          type="text"
+          defaultValue={task.title}
+        />
+
+        <img className="delete" src="./delete.svg" onClick={() => deleteTask(index) }/>
+      </div>
+    ));
   };
 
   const saveToState = () => {
-    // Determine whether it's an update or a new list
+    const taskInputs = document.getElementsByClassName('inputTask');
+    const newTasks = Array.from(taskInputs).map((input) => ({
+      title: input.value,
+      description: '',
+    }));
+  
     if (location.state) {
-      // Update an existing list
-      dispatch(updateList({
-        listTargetId: location.state.id,
-        newTitle: listTitle,
-        newDescription: desc,
-      }));
-    } else {
-      // Create a new list
-      dispatch(addNewList({
+      updateDataFromApi(location.state.id, {
+        id: location.state.id,
         title: listTitle,
         description: desc,
-        status: 'blank',
-      }));
+        todo: newTasks,
+      })
+    } else {
+      addDataToApi({
+        title: listTitle,
+        description: desc,
+        todo: newTasks,
+        statut: 0,
+      })
     }
-
+  
     navigate('/');
   };
+
+  const deleteListToState = () => {
+    console.log(location.state)
+
+    if (location.state) {
+      deleteDataFromApi(location.state.id)
+    }
+  
+    navigate('/');
+  }
 
   return (
     <>
       <Header />
 
       <div id="formulaire">
-        <img
-          className="back"
-          src="/back.svg"
-          alt="back arrow"
-          onClick={() => navigate('/')}
-        />
-
         <form>
           <div id="listTitle">
+            <img
+              className="back"
+              src="/back.svg"
+              alt="back arrow"
+              onClick={() => navigate('/')}
+            />
+
             <input
               type="text"
               placeholder="Write your title for this new list."
-              value={listTitle}
+              value={ listTitle }
               onChange={(e) => setListTitle(e.target.value)}
             />
+
+            <img className="delete deleteList" src="./delete.svg" onClick={ deleteListToState }/>
           </div>
           <div id="desc">
             <input
@@ -83,8 +118,9 @@ const Formulaire = () => {
               onChange={(e) => setDesc(e.target.value)}
             />
           </div>
-
-          {tasks}
+          
+          {inputExistingTasks}
+          {todo}
         </form>
       </div>
 

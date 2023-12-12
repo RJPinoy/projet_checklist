@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route index element={ <Dashboard /> } />
           <Route path='/formulaire' key={location.pathname} element={ <Formulaire /> } />
-          <Route path='/checklist' key={location.pathname} element={ <Checklist /> } />
+          <Route path='/checklist/:id' key={location.pathname} element={ <Checklist /> } />
         </Routes>
       </Provider>
     </>
