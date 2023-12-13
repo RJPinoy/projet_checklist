@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateList, deleteList, getListId } from "./listsData/ListSlice";
-import { deleteDataFromApi } from "./Axios";
 
 const RightChecklist = ({ lists, statut, statutString }) => {
   const navigate = useNavigate();

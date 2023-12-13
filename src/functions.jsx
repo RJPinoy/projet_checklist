@@ -45,7 +45,3 @@ export const changeListStatus = () => {
         }
     })}
 }
-
-export const deleteConfirm = () => {
-
-}

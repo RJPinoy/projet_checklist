@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const apiInfoUrl = 'https://greenvelvet.alwaysdata.net/pfc/';
 const token = 'df7c7388f5d8a331ea1f7081023238f5a46f427e';
-const pingUrl = 'https://greenvelvet.alwaysdata.net/pfc/ping';
 const checklistsUrl = 'https://greenvelvet.alwaysdata.net/pfc/checklists';
 const checklistUrl = 'https://greenvelvet.alwaysdata.net/pfc/checklist';
 const addUrl = 'https://greenvelvet.alwaysdata.net/pfc/checklist/add';
@@ -68,17 +67,6 @@ export const addDataToApi = async (data) => {
         console.error(error);
     }
 }
-
-
-export const test = async () => {
-    try {
-        const responsePostTest = await axios.get(pingUrl);
-        console.log(responsePostTest.data);
-
-    } catch (error) {
-        console.error(error);
-    };
-};
 
 export const deleteDataFromApi = async (id) => {
     try {
