@@ -3,3 +3,26 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin formInputSettings {
+    width: 50%;
+    height: 10dvw;
+    margin: 10px 10px;
+    border: none;
+    color: black;
+    background-color: white;
+}
+
+@mixin center {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-50%);
+    z-index: 9999;
+}

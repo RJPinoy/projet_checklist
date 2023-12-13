@@ -1,33 +1,38 @@
+@use './variables' as v;
+
 #left {
+    position: relative;
     width: 35%;
     height: 100%;
-
-    background-color: burlywood;
-    border: 1px solid blue;
+    border-right: 2px solid black;
+    background-color: v.$default_color;
 }
 
 #navHeader {
     @include flexElement;
-    color: #7F7F7F;
+    color: v.$main_color;
     height: 50px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 
-    background-color: white;
-    border: 1px solid blue;
+    h2 {
+        position: absolute;
+        left: 5vw;
+    }
 }
 
-#navHeader h2 {
-    position: absolute;
-    left: 5vw;
+nav {
+    height: 70%;
+    overflow-y: auto;
 }
 
-.list {
-    display: flex;
-    align-items: center;
-    padding-left: 3vw;
-    color: black;
-    width: 100%;
-    height: 50px;
-
+#newList {
+    @include flexElement;
+    position: fixed;
     background-color: white;
-    border: 1px solid blue;
+    bottom: 0;
+    width: 35%;
+    height: 20vh;
+    border-top: 1px solid black;
+    box-shadow: -10px -5px 10px rgba(0, 0, 0, 0.5);
 }

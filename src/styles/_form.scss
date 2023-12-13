@@ -1,0 +1,87 @@
+@use './variables' as v;
+
+#formulaire {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    background-color: v.$default_color;
+    overflow-y: auto;
+
+    form {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    
+        div {
+            border-bottom: 1px solid black;
+            background-color: white;
+        }
+    }
+}
+
+.divButton {
+    @include flexElement;
+    justify-content: space-evenly;
+    position: fixed;
+    width: 100%;
+    margin: auto;
+    padding: 20px 0;
+    border-top: 1px solid black;
+    bottom: 0;
+    background-color: white;
+}
+
+#saveButton {
+    font-size: 3rem;
+}
+
+#listTitle {
+    position: relative;
+    background-color: v.$light_main_color;
+
+    .back {
+        position: absolute;
+        top: 33%;
+        left: 5%;
+        cursor: pointer;
+        aspect-ratio: 1/1;
+        width: 50px;
+    }
+
+    input {
+        @include formInputSettings;
+        font-size: 2rem;
+        height: v.$title_input_height;
+        background-color: transparent;
+    }
+
+    .deleteList {
+        position: absolute;
+        top: 33%;
+        right: 5%;
+        cursor: pointer;
+        aspect-ratio: 1/1;
+        width: 50px;
+    }
+    
+}
+
+#desc input {
+    @include formInputSettings;
+    font-size: 2rem;
+    height: v.$description_input_height;
+}
+
+.divInputTask {
+    @include flexElement;
+    justify-content: space-evenly;
+}
+
+.inputTaskTitle, .inputTaskDescription {
+    @include formInputSettings;
+    width: 30%;
+    font-size: 1rem;
+    height: 50px;
+}
+label {
+    font-size: 2em;
+    color: black;
+}

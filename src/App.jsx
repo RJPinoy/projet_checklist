@@ -1,6 +1,10 @@
 import './App.scss';
-import LeftChecklist from './dashboard/LeftChecklist';
-import RightChecklist from './dashboard/RightChecklist';
+import Dashboard from './pages/dashboard';
+import Checklist from './pages/checklist';
+import Formulaire from './pages/formulaire';
+import { Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 window.onload = function() {
   const rootDiv = document.getElementById('root');
@@ -9,41 +13,15 @@ window.onload = function() {
 };
 
 function App() {
-
   return (
     <>
-      <div id='header'>
-        <div id='logo'>
-
-        </div>
-
-        <h1>Pre-fight checklist</h1>
-      </div>
-
-      <div id='content'>
-        <section id='left'>
-          <article id='navHeader'>
-            <h2>My lists :</h2>
-          </article>
-
-          <nav id='nav'>
-            <ul>
-              <LeftChecklist />
-            </ul>
-          </nav>
-        </section>
-
-        <section id='right'>
-          <article className='noList'>
-            <p>Oh no! Start now to create a new list.</p>
-          </article>
-
-          <article>
-            <RightChecklist />
-            <RightChecklist />
-          </article>
-        </section>
-      </div>
+      <Provider store={ store }>
+        <Routes>
+          <Route index element={ <Dashboard /> } />
+          <Route path='/formulaire' key={location.pathname} element={ <Formulaire /> } />
+          <Route path='/checklist/:id' key={location.pathname} element={ <Checklist /> } />
+        </Routes>
+      </Provider>
     </>
   )
 }
