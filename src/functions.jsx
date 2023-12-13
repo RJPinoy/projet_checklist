@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { statutDataFromApi } from './composants/Axios';
 
@@ -44,4 +44,8 @@ export const changeListStatus = () => {
             statutDataFromApi(list.id, 0)
         }
     })}
+}
+
+export const deleteConfirm = () => {
+
 }

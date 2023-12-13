@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../composants/Header';
 import InputTask from '../composants/InputTask';
-import { addDataToApi, deleteDataFromApi, updateDataFromApi } from '../composants/Axios';
+import { addDataToApi, updateDataFromApi } from '../composants/Axios';
+import DeleteConfirm from '../composants/DeleteConfirm';
+import { getListId } from '../composants/listsData/ListSlice';
 
 const Formulaire = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,10 +43,16 @@ const Formulaire = () => {
   if (location.state) {
     inputExistingTasks = list.todo.map((task, index) => (
       <div key={index} className='divInputTask'>
+        <label htmlFor="Task">- Task {index + 1} :</label>
         <input
-          className="inputTask"
+          className="inputTaskTitle"
           type="text"
           defaultValue={task.title}
+        />
+        <input
+          className="inputTaskDescription"
+          type="text"
+          defaultValue={task.description}
         />
 
         <img className="delete" src="./delete.svg" onClick={() => deleteTask(index) }/>
@@ -52,11 +61,21 @@ const Formulaire = () => {
   };
 
   const saveToState = () => {
-    const taskInputs = document.getElementsByClassName('inputTask');
-    const newTasks = Array.from(taskInputs).map((input) => ({
-      title: input.value,
-      description: '',
-    }));
+    const inputTaskTitle = document.getElementsByClassName('inputTaskTitle');
+    const inputTaskDescription = document.getElementsByClassName('inputTaskDescription');
+    const newTasks = [];
+    
+    for (let i = 0; i < inputTaskTitle.length; i++) {
+      const title = inputTaskTitle[i].value;
+      const description = inputTaskDescription[i].value;
+    
+      const task = {
+        title: title,
+        description: description
+      };
+    
+      newTasks.push(task);
+    }
   
     if (location.state) {
       updateDataFromApi(location.state.id, {
@@ -78,17 +97,17 @@ const Formulaire = () => {
   };
 
   const deleteListToState = () => {
-    console.log(location.state)
+    const deleteConfirmDiv = document.getElementById('bgDeleteConfirm');
 
-    if (location.state) {
-      deleteDataFromApi(location.state.id)
-    }
-  
-    navigate('/');
+    deleteConfirmDiv.classList.toggle('d-none');
+    
+    dispatch(getListId(location.state.id));
   }
 
   return (
     <>
+      <DeleteConfirm />
+
       <Header />
 
       <div id="formulaire">
@@ -100,7 +119,7 @@ const Formulaire = () => {
               alt="back arrow"
               onClick={() => navigate('/')}
             />
-
+            <label htmlFor="Title">Title : </label>
             <input
               type="text"
               placeholder="Write your title for this new list."
@@ -111,6 +130,7 @@ const Formulaire = () => {
             <img className="delete deleteList" src="./delete.svg" onClick={ deleteListToState }/>
           </div>
           <div id="desc">
+            <label htmlFor="Description">Description of the list : </label>
             <input
               type="text"
               placeholder="Write a description."

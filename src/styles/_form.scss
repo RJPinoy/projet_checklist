@@ -1,8 +1,11 @@
+@use './variables' as v;
+
 #formulaire {
     position: relative;
     width: 100%;
-    min-height: 100%;
-    background-color: #d9d9d9;
+    height: 80%;
+    background-color: v.$default_color;
+    overflow-y: auto;
 
     form {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
@@ -17,7 +20,8 @@
 .divButton {
     @include flexElement;
     justify-content: space-evenly;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     margin: auto;
     padding: 20px 0;
     border-top: 1px solid black;
@@ -31,7 +35,7 @@
 
 #listTitle {
     position: relative;
-    background-color: #7AC1FF;
+    background-color: v.$light_main_color;
 
     .back {
         position: absolute;
@@ -44,8 +48,8 @@
 
     input {
         @include formInputSettings;
-        font-size: 3rem;
-        height: 120px;
+        font-size: 2rem;
+        height: v.$title_input_height;
         background-color: transparent;
     }
 
@@ -63,14 +67,21 @@
 #desc input {
     @include formInputSettings;
     font-size: 2rem;
+    height: v.$description_input_height;
 }
 
 .divInputTask {
     @include flexElement;
+    justify-content: space-evenly;
 }
 
-.inputTask {
+.inputTaskTitle, .inputTaskDescription {
     @include formInputSettings;
-    width: 80%;
+    width: 30%;
     font-size: 1rem;
+    height: 50px;
+}
+label {
+    font-size: 2em;
+    color: black;
 }

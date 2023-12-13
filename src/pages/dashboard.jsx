@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from "../composants/Header";
 import LeftLists from "../composants/LeftLists";
 import RightLists from "../composants/RightLists";
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchDataFromApi } from "../composants/Axios";
 import { getListFromApi } from '../composants/listsData/ListSlice';
 import { changeListStatus } from '../functions';
+import DeleteConfirm from '../composants/DeleteConfirm';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const Dashboard = () => {
 
   return (
     <>
+      <DeleteConfirm />
+
       <Header />
 
       <div id='content'>

@@ -4,6 +4,7 @@ import ApiData from './ListInit';
 const listSlice = createSlice({
   name: 'lists',
   initialState: ApiData,
+
   reducers: {
     getListFromApi: (state, action) => {
       const data = action.payload;
@@ -32,6 +33,10 @@ const listSlice = createSlice({
       };
     },
 
+    getListId: (state, action) => {
+      state.selectedListId = action.payload;
+    },
+
     deleteList: (state, action) => {
       const { listTargetId } = action.payload;
     
@@ -45,5 +50,5 @@ const listSlice = createSlice({
   },
 });
 
-export const { getListFromApi, updateList, deleteList } = listSlice.actions;
+export const { getListFromApi, updateList, getListId, deleteList } = listSlice.actions;
 export default listSlice.reducer;

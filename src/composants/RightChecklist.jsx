@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateList, deleteList } from "./listsData/ListSlice";
+import { updateList, deleteList, getListId } from "./listsData/ListSlice";
 import { deleteDataFromApi } from "./Axios";
 
 const RightChecklist = ({ lists, statut, statutString }) => {
@@ -45,13 +45,11 @@ const RightChecklist = ({ lists, statut, statutString }) => {
   };
   
   const deleteListToState = (listId) => {
-    dispatch(
-      deleteList({listTargetId: listId})
-    );
+    const deleteConfirmDiv = document.getElementById('bgDeleteConfirm');
 
-    deleteDataFromApi(listId);
-
-    navigate('/');
+    deleteConfirmDiv.classList.toggle('d-none');
+    
+    dispatch(getListId(listId));
   }
 
   return (

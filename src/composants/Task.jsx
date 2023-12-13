@@ -5,7 +5,11 @@ const Task = ({ todo, changeTaskStatut }) => {
       onClick={() => changeTaskStatut(index) }
       className={`${task.statut === 1 ? 'task-done' : ''}`}
     >
-      <p>- {task.title}</p>
+      <p>
+        Title : {task.title}
+        <br/>
+        Description : {task.description}
+      </p>
 
       <section>
         {task.statut === 0 ? (

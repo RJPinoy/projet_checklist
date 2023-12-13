@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateList, deleteList } from "./listsData/ListSlice";
+import { updateList, deleteList, getListId } from "./listsData/ListSlice";
 import { deleteDataFromApi } from "./Axios";
+import DeleteConfirm from "./DeleteConfirm";
 
 const LeftChecklist = ({ id, title, description, todo, statut }) => {
   const navigate = useNavigate();
@@ -45,15 +46,11 @@ const LeftChecklist = ({ id, title, description, todo, statut }) => {
   };
   
   const deleteListToState = () => {
-    dispatch(
-      deleteList({listTargetId: id})
-    );
+    const deleteConfirmDiv = document.getElementById('bgDeleteConfirm');
 
-    deleteDataFromApi(id);
-
-    if (id === location.state.id) {
-      navigate('/');
-    }
+    deleteConfirmDiv.classList.toggle('d-none');
+    
+    dispatch(getListId(id));
   }
 
   const countInProgressTasks = todo.reduce(

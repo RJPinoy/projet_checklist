@@ -1,10 +1,13 @@
+@use './variables' as v;
+
 #right {
     @include flexElement;
+    justify-content: start;
     flex-direction: column;
+    padding: 20px 0;
     width: 65%;
     height: 100%;
-
-    background-color: skyblue;
+    background-color: v.$default_color;
     
     article {
         @include flexElement;
@@ -17,21 +20,31 @@
     border: 1px solid black;
     width: 50%;
     border-radius: 10px 10px 0 0;
-    overflow: hidden;
     margin-bottom: 5dvh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
 .ListTable {
     width: 100%;
     color: black;
     border-collapse: collapse;
-    overflow: hidden;
-    
+  
     thead {
-        background-color: #D9D9D9;
+      background-color: v.$main_color;
+      color: white;
     }
-    
+  
     tbody {
-        background-color: white;
+      max-height: 3 * v.$td_list_height;
+      overflow-y: auto;
+      display: block;
     }
-}
+  
+    tr {
+      display: table;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+  

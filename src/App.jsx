@@ -13,7 +13,6 @@ window.onload = function() {
 };
 
 function App() {
-
   return (
     <>
       <Provider store={ store }>
